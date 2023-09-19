@@ -18,9 +18,18 @@ def determineBest(f, p1, p2):
             closest = p
     return closest
 
+def createLine(p1, p2, f):
+    points = [p1]
+
+    while p1 != p2:
+        p1 = determineBest(f, p1, p2)
+        points.append(p1)
+    
+    return points
+
 p1 = (2, 1)
 p2 = (5, 10)
-points = []
-
 f = lineFromPoints(p1, p2)
-print(determineBest(f, p1, p2))
+
+line = createLine(p1, p2, f)
+print(line)
