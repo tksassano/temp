@@ -31,15 +31,14 @@ def determineBest(f, m, p1, p2):
 
 def createLine(f, m, p1, p2):
     points = [p1]
-
     while p1 != p2:
         p1 = determineBest(f, m, p1, p2)
         points.append(p1)
-    
     return points
 
 p1 = (2, 1)
 p2 = (5, 10)
+
 m, f = lineFromPoints(p1, p2)
 
 line = createLine(f, m, p1, p2)
