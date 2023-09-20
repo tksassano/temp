@@ -4,7 +4,7 @@ class Line:
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
-        if p1[1] == p2[1]:
+        if p1[0] == p2[0]:
             self.m = None
         else:
             self.m = (p2[1] - p1[1]) / (p2[0] - p1[0])
@@ -41,6 +41,6 @@ class Line:
         return points
 
 p1 = (2, 1)
-p2 = (5, 10)
+p2 = (2, 10)
 line = Line(p1, p2)
 print(line.createLine())
