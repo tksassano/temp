@@ -1,39 +1,27 @@
-from math import dist
+def calc_slope(p0, p1):
+    x0, y0 = p0
+    x1, y1 = p1
+    try:
+        m = (y1 - y0) / (x1 - x0)
+    except:
+        m = float("inf")
+    return m
 
-class Line:
-    def __init__(self, p1, p2):
-        self.p1 = p1
-        self.p2 = p2
-        self.m = (p2[1] - p1[1]) / (p2[0] - p1[0])
-        self.b = p2[1] - self.m * p2[0]
+def draw_line(p0, p1):
+    m = calc_slope(p0, p1)
+    
+    x, y = p0
+    
+    print(f"({x}, {y})")
+    
+    while (x, y) != p1:
+        points = [(x+1, y+1), (x+1, y), (x, y+1)]
+        slopes = [calc_slope(p0, point) for point in points]
+        candidates = {points[i]: slopes[i] for i in range(len(points))}
         
-    def evaluate(self, x):
-        return int(self.m * x + self.b)
-    
-    def getCandidates(self, point):
-        x, y = point
-        if self.m > 0:
-            return [(x+1, y+1), (x+1, y), (x, y+1)]
-        elif self.m < 0:
-            return [(x+1, y-1), (x+1, y), (x, y-1)]
-    
-    def determineBest(self, point):
-        candidates = self.getCandidates(point)
-        closest = candidates[0]
-        for p in candidates:
-            d = dist(p, self.p2)
-            if d < dist(closest, self.p2):
-                closest = p
-        return closest
-    
-    def createLine(self):
-        points = [self.p1]
-        while self.p1 != self.p2:
-            self.p1 = self.determineBest(self.p1)
-            points.append(self.p1)
-        return points
+        best = min(candidates, key=lambda point: abs(m - candidates[point]))
+        x, y = best
+        
+        print(f"({x}, {y})")
 
-p1 = (2, 1)
-p2 = (5, 10)
-line = Line(p1, p2)
-print(line.createLine())
+draw_line((2, 1), (5, 10))
