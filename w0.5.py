@@ -4,7 +4,10 @@ class Line:
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
-        self.m = (p2[1] - p1[1]) / (p2[0] - p1[0])
+        if p1[1] == p2[1]:
+            self.m = None
+        else:
+            self.m = (p2[1] - p1[1]) / (p2[0] - p1[0])
         self.b = p2[1] - self.m * p2[0]
         
     def evaluate(self, x):
